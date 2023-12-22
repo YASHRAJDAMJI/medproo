@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "155942549606",
+    "project_id": "aaharaplication",
+    "storage_bucket": "aaharaplication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155942549606:android:58dca2d47a5e5f0ca495a7",
+        "android_client_info": {
+          "package_name": "com.example.aashray_veriion3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwGkM3mk8U05aSR81c4uTFybQw1TiG65s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
