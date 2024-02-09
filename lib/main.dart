@@ -67,12 +67,12 @@ class MyApp extends StatelessWidget {
 
 
               var kk2 = FirebaseFirestore.instance
-                  .collection('messvala')
+                  .collection('doctors')
                   .doc(user!.uid)
                   .get()
                   .then((DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists) {
-                  if (documentSnapshot.get('role') == "mess" ) {
+                  if (documentSnapshot.get('role') == "doctor" ) {
                     flag=1;
                     Navigator.pushReplacement(
                       context,

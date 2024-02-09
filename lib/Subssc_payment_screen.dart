@@ -1,4 +1,5 @@
 import 'package:aashray_veriion3/UpiPaymentScreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(SubPaymentScreen());
@@ -23,6 +24,23 @@ class SubscriptionScreen extends StatefulWidget {
 
 class _SubscriptionScreenState extends State<SubscriptionScreen> {
   // Add any necessary variables and logic for handling subscriptions
+
+  Future<Map<String, dynamic>> fetchPaymentDetails() async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+      await FirebaseFirestore.instance.collection('payment').doc('paye').get();
+
+      if (documentSnapshot.exists) {
+        return documentSnapshot.data()!;
+      } else {
+        return {'upid': '', 'name': ''}; // Default values if document doesn't exist
+      }
+    } catch (e) {
+      print('Error fetching payment details: $e');
+      return {'upid': '', 'name': ''}; // Return default values on error
+    }
+  }
+
 
   void makePayment(double price, String recnm, String upid) {
     Navigator.pushReplacement(
@@ -64,10 +82,12 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
             ),
             SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 double pr=800;
-
-                makePayment(pr, '8856887702@ybl', 'Yashraj Damji');
+                Map<String, dynamic> paymentDetails = await fetchPaymentDetails();
+                String upid = paymentDetails['upid'];
+                String recnm = paymentDetails['name'];
+                makePayment(pr, recnm, upid);
               },
               child: Text('Pro Plan - \$29.99/month'),
             ),

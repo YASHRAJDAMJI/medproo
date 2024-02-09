@@ -63,7 +63,17 @@ class _FormPageState extends State<FormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sukhi Bhaji'),
+        backgroundColor: Color(0xFFF5E8D8),
+        //title: Text('Aahar '),
+        title: Text('Vote',
+          style: TextStyle(
+              color: Color(0xFF9F5D06)
+          ),
+        ),
+        iconTheme: IconThemeData(
+          color: Color(0xFF9F5D06), // Set the color of the back button
+        ),
+
       ),
       body: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
@@ -88,85 +98,90 @@ class _FormPageState extends State<FormPage> {
           final oli2 = snapshot.data?.get('bhajioli2') ?? 'Option 2 (Olibhaji)';
           olibj2=oli2;
 
-          return Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  'Select a SUkhi Bhaji:',
-                  style: TextStyle(fontSize: 18),
+          return Container(
+            color: Color(0xfff5e8d8), // Set the background color here
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Select a Sukhi Bhaji:',
+                    style: TextStyle(fontSize: 18, color: Color(0xFF9F5D06)), // Set the text color here
+                  ),
                 ),
-              ),
-              RadioListTile(
-                title: Text(bhaji1),
-                value: bhaji1,
-                groupValue: selectedBhajiOption,
-                onChanged: (value) {
-                  setState(() {
-                    selectedBhajiOption = value.toString();
-                  });
-                },
-              ),
-              RadioListTile(
-                title: Text(bhaji2),
-                value: bhaji2,
-                groupValue: selectedBhajiOption,
-                onChanged: (value) {
-                  setState(() {
-                    selectedBhajiOption = value.toString();
-                  });
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  'Select a Oli Bhaji:',
-                  style: TextStyle(fontSize: 18),
+                RadioListTile(
+                  title: Text(bhaji1),
+                  value: bhaji1,
+                  groupValue: selectedBhajiOption,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedBhajiOption = value.toString();
+                    });
+                  },
                 ),
-              ),
-              RadioListTile(
-
-                title: Text(oli1),
-                value: oli1,
-                groupValue: selectedOliBhajiOption,
-                onChanged: (value) {
-                  setState(() {
-                    selectedOliBhajiOption = value.toString();
-                  });
-                },
-              ),
-              RadioListTile(
-                title: Text(oli2),
-                value: oli2,
-                groupValue: selectedOliBhajiOption,
-                onChanged: (value) {
-                  setState(() {
-                    selectedOliBhajiOption = value.toString();
-                  });
-                },
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (selectedBhajiOption.isNotEmpty || selectedOliBhajiOption.isNotEmpty) {
-                    // An option for Bhaji or Oli Bhaji is selected
-                    incrementCounts();
-                  } else {
-                    // Show a validation message if no option is selected
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Please select an option for Bhaji or Oli Bhaji.'),
-                      ),
-                    );
-                  }
-                },
-                child: Text('Submit'),
-              ),
-            ],
+                RadioListTile(
+                  title: Text(bhaji2),
+                  value: bhaji2,
+                  groupValue: selectedBhajiOption,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedBhajiOption = value.toString();
+                    });
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Select a Oli Bhaji:',
+                    style: TextStyle(fontSize: 18, color: Color(0xFF9F5D06)), // Set the text color here
+                  ),
+                ),
+                RadioListTile(
+                  title: Text(oli1),
+                  value: oli1,
+                  groupValue: selectedOliBhajiOption,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedOliBhajiOption = value.toString();
+                    });
+                  },
+                ),
+                RadioListTile(
+                  title: Text(oli2),
+                  value: oli2,
+                  groupValue: selectedOliBhajiOption,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedOliBhajiOption = value.toString();
+                    });
+                  },
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (selectedBhajiOption.isNotEmpty ||
+                        selectedOliBhajiOption.isNotEmpty) {
+                      // An option for Bhaji or Oli Bhaji is selected
+                      incrementCounts();
+                    } else {
+                      // Show a validation message if no option is selected
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Please select an option for Bhaji or Oli Bhaji.'),
+                        ),
+                      );
+                    }
+                  },
+                  child: Text('Submit'),
+                ),
+              ],
+            ),
           );
+
         },
       ),
     );
   }
+
 
   void incrementCounts() {
     if (selectedBhajiOption == bj1) {

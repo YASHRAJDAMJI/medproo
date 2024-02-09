@@ -15,6 +15,8 @@ class _UserLoginPageState extends State<UserLoginPage> {
   String role = 'user';
   String password = '';
   String fullname = '';
+  var enable=true;
+  int adharNumber = 0;
   bool login = false;
 
   @override
@@ -143,7 +145,8 @@ class _UserLoginPageState extends State<UserLoginPage> {
                           ? AuthServices.signinUser(
                           role, email, password, context)
                           : AuthServices.signupUser(
-                          role, email, password, fullname, context);
+                          role, email, password, fullname, adharNumber,context);
+
                     }
                   },
                   child: Text(login ? 'Login' : 'Signup'),

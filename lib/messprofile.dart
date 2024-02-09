@@ -33,7 +33,7 @@ class _MessProfileScreenState extends State<MessProfileScreen> {
   Future<void> _fetchUserProfile() async {
     try {
       DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
-          .collection('messvala')
+          .collection('doctors')
           .doc(_user.uid)
           .get();
 
@@ -41,7 +41,7 @@ class _MessProfileScreenState extends State<MessProfileScreen> {
         setState(() {
           _userName = userSnapshot.get('name') ?? '';
           _userEmail = userSnapshot.get('email') ?? '';
-          _messName = userSnapshot.get('mess_name') ?? '';
+
           _userPhone = userSnapshot.get('phone') ?? '';
           _userId = _user.uid;
         });
@@ -129,15 +129,7 @@ class _MessProfileScreenState extends State<MessProfileScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 16.0),
-                    Text(
-                      'Mess Name',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.orange,
-                      ),
-                    ),
-                    SizedBox(height: 8.0),
+
                     Text(
                       _messName,
                       style: TextStyle(

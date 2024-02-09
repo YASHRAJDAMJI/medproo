@@ -5,8 +5,10 @@ import 'package:aashray_veriion3/firebaseFunctions.dart';
 import 'package:restart_app/restart_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'main.dart';
+
 class AuthServices {
-  static Future<void> signupUser(String role, String email, String password, String name, BuildContext context) async {
+  static Future<void> signupUser(String role, String email, String password, String name,int adharNumber,BuildContext context) async {
     try {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -32,15 +34,22 @@ class AuthServices {
         print("Error updating photo URL: $e");
       }
 
-      await FirestoreServices.saveUser(role, name, email, userCredential.user!.uid);
+      await FirestoreServices.saveUser(role, name, email, adharNumber,userCredential.user!.uid);
 
-      // Function to save data to SharedPreferences
+      //Function to save data to SharedPreferences
       Future<void> saveDataToSharedPreferences(String key, String value) async {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString(key, value);
       }
 
       saveDataToSharedPreferences('role', 'user');
+      Navigator.pop(context);
+      //Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MyApp()),
+      );
 
       ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Hide the progress indicator
 
@@ -78,7 +87,7 @@ class AuthServices {
 
       ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Hide the progress indicator
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('You are Logged in')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('You are Loged In Please Wait')));
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Hide the progress indicator
 

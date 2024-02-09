@@ -2,6 +2,8 @@ import 'package:aashray_veriion3/signupbyadminrequest.dart';
 import 'package:flutter/material.dart';
 import 'package:aashray_veriion3/authFunction2.dart';
 
+import 'doctorregister.dart';
+
 class LoginMess extends StatefulWidget {
   const LoginMess({super.key});
 
@@ -167,7 +169,7 @@ class _LoginMessState extends State<LoginMess> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SignupByHadminRequest(),
+                      builder: (context) => OnboardClientPage(),
                     ),
                   );
                 },

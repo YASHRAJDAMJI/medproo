@@ -1,4 +1,4 @@
-package com.example.aashray_veriion3
+package com.teammedpro.medpro
 
 import io.flutter.embedding.android.FlutterActivity
 

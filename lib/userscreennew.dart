@@ -1,9 +1,11 @@
 import 'package:aashray_veriion3/userpage.dart';
 import 'package:aashray_veriion3/userprofilescreen.dart';
+import 'package:aashray_veriion3/docs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'LoginForm.dart';
+import 'healthscore.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -23,8 +25,14 @@ class _UserScreenState extends State<UserScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 254, 171, 0),
-        title: Text('Aahar '),
+        backgroundColor: Color(0xFFF5E8D8),
+        //title: Text('Aahar '),
+        title: Text('MedPro',
+          style: TextStyle(
+              color: Color(0xFF9F5D06)
+          ),
+        ),
+
         actions: [
           IconButton(
             onPressed: () async {
@@ -37,19 +45,22 @@ class _UserScreenState extends State<UserScreen> {
               await FirebaseAuth.instance.signOut();
             },
             icon: Icon(Icons.leave_bags_at_home),
+            color: Color(0xFF9F5D06),
           )
         ],
       ),
       body: _getSelectedScreen(),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color(0xFFE78510),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'MessList',
+            backgroundColor:  Color(0xFFFFFFFF),
+            label: 'HealthScore',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.star),
-            label: 'Aashray',
+            label: 'Docs',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -57,7 +68,7 @@ class _UserScreenState extends State<UserScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Color(0xFFF8F0E2),
         onTap: _onItemTapped,
       ),
     );
@@ -66,9 +77,9 @@ class _UserScreenState extends State<UserScreen> {
   Widget _getSelectedScreen() {
     switch (_selectedIndex) {
       case 0:
-        return userpage();
+        return HealthScoreScreen();
       case 1:
-        return ImpressionsScreen();
+        return docs();
       case 2:
         return UserProfileScreen();
       default:

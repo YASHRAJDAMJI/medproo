@@ -44,7 +44,7 @@ class _UpiPaymentScreenState extends State<UpiPaymentScreen> {
       receiverUpiId: widget.upid,
       receiverName: widget.recnm,
       transactionRefId: 'Testing Upi India Plugin',
-      transactionNote: 'Just an example.',
+      transactionNote: 'Paying Mony',
       amount: widget.price,
     );
   }
@@ -80,15 +80,16 @@ class _UpiPaymentScreenState extends State<UpiPaymentScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        height: 100,
-                        width: 100,
-                        color: Colors.blue.shade900,
-                        child: const Icon(
-                          Icons.payment,
-                          size: 60,
-                          color: Colors.white,
+                        height: 60,
+                        width: 60,
+
+                        child:  Image.memory(
+                          app.icon, // Assuming `app.icon` is a Uint8List containing image data
+                          height: 60,
+                          width: 60,
                         ),
                       ),
+
                       Text(app.name),
                     ],
                   ),
@@ -153,8 +154,8 @@ class _UpiPaymentScreenState extends State<UpiPaymentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue.shade900,
-        title: const Text("Integrate UPI"),
+      //  backgroundColor: Color.fromRGBO(r, g, b, opacity),
+        title: const Text("Make UPI Payment ⬆️"),
       ),
       body: Column(
         children: <Widget>[

@@ -1,6 +1,7 @@
 import 'package:aashray_veriion3/loginmess.dart';
 import 'package:aashray_veriion3/messprofile.dart';
 import 'package:aashray_veriion3/patientcheckup.dart';
+import 'package:aashray_veriion3/uplodedoc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,13 +9,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'UpiPaymentScreen.dart';
+import 'featchdoc.dart';
 
-class Home extends StatefulWidget {
+class ptscdoc extends StatefulWidget {
+  final String uid; // Add UID as a parameter
+
+  ptscdoc({required this.uid}); // Constructor with UID parameter
+
   @override
-  _HomeState createState() => _HomeState();
+  _ptscdoc createState() => _ptscdoc();
 }
 
-class _HomeState extends State<Home> {
+class _ptscdoc extends State<ptscdoc> {
   int _currentIndex = 0;
   final String phoneNumber = "8856887702";
   final messNameController = TextEditingController();
@@ -123,14 +129,14 @@ class _HomeState extends State<Home> {
           content: Text('Your subscription is over !! Make Payment for continueing the Access to Aahar Aplication. Choose an option:'),
           actions: [
             ElevatedButton(
-            onPressed: () async {
-              // Handle logout action
-              //await FirebaseAuth.instance.signOut();
-              _makePhoneCall(phoneNumber);
-             // Navigator.pop(context); // Close the dialog
-            },
-            child: Text('Contact us'),
-          ),
+              onPressed: () async {
+                // Handle logout action
+                //await FirebaseAuth.instance.signOut();
+                _makePhoneCall(phoneNumber);
+                // Navigator.pop(context); // Close the dialog
+              },
+              child: Text('Contact us'),
+            ),
             ElevatedButton(
               onPressed: () async {
                 // Handle payment action
@@ -181,7 +187,7 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.refresh),
             onPressed: () {
               // Handle the refresh action
-             // fetchFirebaseCounts();
+              // fetchFirebaseCounts();
             },
           ),
           IconButton(
@@ -198,7 +204,7 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.leave_bags_at_home),
           )
         ],
-        title: Text('MedPro : Doctor'),
+        title: Text('Add Record'),
       ),
       body: _buildBody(),
       bottomNavigationBar: BottomNavigationBar(
@@ -206,7 +212,7 @@ class _HomeState extends State<Home> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.dock),
             label: 'Home',
           ),
           // BottomNavigationBarItem(
@@ -214,7 +220,7 @@ class _HomeState extends State<Home> {
           //   label: 'Impression',
           // ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.document_scanner),
             label: 'Profile',
           ),
         ],
@@ -230,11 +236,13 @@ class _HomeState extends State<Home> {
   Widget _buildBody() {
     switch (_currentIndex) {
       case 0:
-        return patientcheckup();
-      // case 1:
-      //  return _buildCard();
+        return Uplodedoc(uid: widget.uid);
+
+    // case 1:
+    //  return _buildCard();
       case 1:
-        return MessProfileScreen();
+        return FetchDataScreen(uid:widget.uid);
+        //return FetchDataScreen();
       default:
         return Container();
     }
