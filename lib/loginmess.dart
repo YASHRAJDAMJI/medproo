@@ -1,4 +1,4 @@
-import 'package:aashray_veriion3/signupbyadminrequest.dart';
+
 import 'package:flutter/material.dart';
 import 'package:aashray_veriion3/authFunction2.dart';
 
@@ -32,7 +32,7 @@ class _LoginMessState extends State<LoginMess> {
         backgroundColor: Color.fromARGB(255, 254, 171, 0),
         elevation: 0,
 
-        title: Text('Mess Login'),
+        title: Text('Login:Doctor'),
       ),
 
       body: Form(

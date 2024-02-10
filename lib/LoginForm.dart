@@ -34,22 +34,15 @@ class _LoginFormState extends State<LoginForm> {
                 Padding(
                   padding: const EdgeInsets.only(top: 40),
                   child: Text(
-                    "Ahar",
+                    "MedPro",
                     style: TextStyle(
-                      fontFamily: 'Ravi Prakash',
+                      fontFamily: 'Poppins',
                       fontSize: 45,
                       fontWeight: FontWeight.w400,
                       height: 62 / 39,
                       letterSpacing: 0,
                       color: Color(0xFF2B2A4C),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: Image.asset(
-                    'assets/user_login.png',
-                    fit: BoxFit.cover,
                   ),
                 ),
                 Padding(
@@ -81,13 +74,18 @@ class _LoginFormState extends State<LoginForm> {
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(53.0),
-                                topRight: Radius.circular(53.0),
-                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(48.0),
+                              padding: const EdgeInsets.all(20.0),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -96,7 +94,7 @@ class _LoginFormState extends State<LoginForm> {
                                     decoration: InputDecoration(
                                       hintText: 'Enter Full Name',
                                       border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(12.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                         borderSide: BorderSide(
                                           color: Color(0xFF2B2A4C),
                                           width: 2.0,
@@ -123,7 +121,7 @@ class _LoginFormState extends State<LoginForm> {
                                     decoration: InputDecoration(
                                       hintText: 'Enter Email',
                                       border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(12.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                         borderSide: BorderSide(
                                           color: Color(0xFF2B2A4C),
                                           width: 1.0,
@@ -153,7 +151,7 @@ class _LoginFormState extends State<LoginForm> {
                                     decoration: InputDecoration(
                                       hintText: 'Enter Password',
                                       border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(12.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                         borderSide: BorderSide(
                                           color: Color(0xFF2B2A4C),
                                           width: 1.0,
@@ -183,7 +181,7 @@ class _LoginFormState extends State<LoginForm> {
                                       decoration: InputDecoration(
                                         hintText: 'Enter Aadhar Number',
                                         border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(12.0),
+                                          borderRadius: BorderRadius.circular(10.0),
                                           borderSide: BorderSide(
                                             color: Color(0xFF2B2A4C),
                                             width: 1.0,

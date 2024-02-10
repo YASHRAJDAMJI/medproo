@@ -41,6 +41,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       print('Error fetching user profile: $e');
     }
   }
+
   Future<void> _signOut() async {
     try {
       Navigator.pushReplacement(
@@ -55,91 +56,104 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       print('Error signing out: $e');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Color(0xfffff0dc), // PeachPuff color
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.01,
-              ),
-              child: CircleAvatar(
-                backgroundColor: Color(0xfffff0dc),
-                radius: 80.0,
-                backgroundImage: AssetImage('assets/student.png'),
-              ),
-            ),
-            SizedBox(height: 16.0),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 16.0),
-                    Text(
-                      'Hello',
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 16.0),
-                    Text(
-                      'Name',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.orange,
-                      ),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      _userName,
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 16.0),
-                    Text(
-                      'User ID',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.orange,
-                      ),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      _user.uid,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 16.0),
-                    Text("                                                                                                             "),
-                    ElevatedButton(
-                      onPressed: () {
-                        _signOut();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red, // background color
-                        onPrimary: Colors.white, // text color
-                      ),
-                      child: Text('Logout'),
-                    ),
-                  ],
+        color: Color(0xFFECECEC), // Background color
+        child: Center(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            padding: EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(0, 3),
                 ),
-              ),
+              ],
             ),
-          ],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 16.0),
+                CircleAvatar(
+                  backgroundColor: Color(0xFFECECEC),
+                  radius: 80.0,
+                  backgroundImage: AssetImage('assets/student.png'),
+                ),
+                SizedBox(height: 16.0),
+                Text(
+                  'Hello',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF2B2A4C),
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                _buildLabel('Name', _userName),
+                SizedBox(height: 16.0),
+                _buildLabel('User ID', _user.uid),
+                SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: () {
+                    _signOut();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFFB31312), // Button background color
+                    onPrimary: Colors.white, // Button text color
+                    shadowColor: Colors.black,
+                    elevation: 5,
+                    padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+                  ),
+                  child: Text('Logout'),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 
+  Widget _buildLabel(String labelText, String value) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(
+          color: Color(0xFFB31312), // Border color
+          width: 2.0,
+        ),
+      ),
+      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            labelText,
+            style: TextStyle(
+              fontSize: 18.0,
+              color: Color(0xFFB31312),
+            ),
+          ),
+          SizedBox(height: 8.0),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF2B2A4C),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

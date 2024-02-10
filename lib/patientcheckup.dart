@@ -13,6 +13,7 @@ class _patientcheckupState extends State<patientcheckup> {
   User? currentUser;
   TextEditingController _aadharController = TextEditingController();
   TextEditingController _secretKeyController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
   @override
@@ -24,50 +25,105 @@ class _patientcheckupState extends State<patientcheckup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfffff0dc),
+      appBar: AppBar(
+        backgroundColor: Color(0xFFEEE2DE), // Set the background color of the app bar
+        title: Text('Patient Checkup'), // Set the title of the app bar
+      ),
+      backgroundColor: Color(0xFFEEE2DE), // Set the background color of the scaffold
       key: _scaffoldKey,
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextFormField(
-              controller: _aadharController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: 'Enter Aadhar Number',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Aadhar number is required';
-                } else if (value.length != 12 || int.tryParse(value) == null) {
-                  return 'Aadhar number must be a 12-digit numeric value';
-                }
-                return null;
-              },
+      body: Container(
+        color: Color(0xFFF3EEEA), // Set the background color of the container
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(20.0), // Add padding to the container
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10), // Set the border radius to make the corners rounded
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5), // Add shadow color with opacity
+                        spreadRadius: 5, // Set the spread radius
+                        blurRadius: 7, // Set the blur radius
+                        offset: Offset(0, 3), // Set the shadow offset
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: _aadharController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Enter Aadhar Number',
+                          hintText: 'Enter Aadhar Number', // Add placeholder text
+                          contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0), // Set the padding for the text field
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0), // Set the border radius for the text field
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Aadhar number is required';
+                          } else if (value.length != 12 || int.tryParse(value) == null) {
+                            return 'Aadhar number must be a 12-digit numeric value';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 20),
+                      TextFormField(
+                        controller: _secretKeyController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          labelText: 'Enter Secret Key',
+                          hintText: 'Enter Secret Key', // Add placeholder text
+                          contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0), // Set the padding for the text field
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0), // Set the border radius for the text field
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Secret key is required';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            _checkCredentials();
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0xFFEA906C), // Set the background color of the button
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30), // Set the border radius to make the corners rounded
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+                          child: Text(
+                            'Check History',
+                            style: TextStyle(
+                              color: Colors.black, // Set the text color of the button
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 20),
-            TextFormField(
-              controller: _secretKeyController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Enter Secret Key',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Secret key is required';
-                }
-                return null;
-              },
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                _checkCredentials();
-              },
-              child: Text('Check History'),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -113,24 +169,5 @@ class _patientcheckupState extends State<patientcheckup> {
         ),
       );
     });
-  }
-
-
-}
-
-
-// Define your NewScreen widget here
-class NewScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // This is the new screen that will be shown after successful authentication
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('New Screen'),
-      ),
-      body: Center(
-        child: Text('Welcome to the new screen!'),
-      ),
-    );
   }
 }

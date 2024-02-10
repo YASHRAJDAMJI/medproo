@@ -175,7 +175,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 254, 171, 0),
+        backgroundColor: Color.fromARGB(255, 238, 226, 222),
         actions: [
           IconButton(
             icon: Icon(Icons.refresh),
@@ -202,7 +202,7 @@ class _HomeState extends State<Home> {
       ),
       body: _buildBody(),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color.fromARGB(255, 254, 171, 0),
+        backgroundColor: Color.fromARGB(255, 43, 42, 76),
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
@@ -242,7 +242,7 @@ class _HomeState extends State<Home> {
 
   Widget _buildCard() {
     return Container(
-      color: Colors.orange, // Set the background color
+      color: Color.fromRGBO(43, 42, 76, 0), // Set the background color
       child: Column(
         children: [
           FutureBuilder<double>(

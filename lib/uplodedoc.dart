@@ -20,6 +20,7 @@ class Uplodedoc extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: UplodedocScreen(uid: uid),
+        backgroundColor: Color(0xFFF5F5F5), // Set background color
       ),
     );
   }
@@ -57,18 +58,117 @@ class _UplodedocScreenState extends State<UplodedocScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Upload Document'),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextField(controller: nameController, decoration: InputDecoration(labelText: 'Enter Name')),
-              TextField(controller: diseaseController, decoration: InputDecoration(labelText: 'Enter Disease')),
-              TextField(controller: symptomsController, decoration: InputDecoration(labelText: 'Enter Symptoms')), // Added symptoms field
+              Card(
+                elevation: 5,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: nameController,
+                        decoration: InputDecoration(
+                          labelText: 'Enter Name',
+                          hintText: 'Enter Name', // Add placeholder text
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      TextField(
+                        controller: diseaseController,
+                        decoration: InputDecoration(
+                          labelText: 'Enter Disease',
+                          hintText: 'Enter Disease', // Add placeholder text
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      TextField(
+                        controller: symptomsController,
+                        decoration: InputDecoration(
+                          labelText: 'Enter Symptoms',
+                          hintText: 'Enter Symptoms', // Add placeholder text
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Card(
+                elevation: 5,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Dynamic Fields:',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 10),
+                      Column(
+                        children: dynamicFields.map((field) {
+                          return Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  decoration: InputDecoration(labelText: 'Enter Medicine Name'),
+                                  onChanged: (value) {
+                                    field['label'] = value;
+                                  },
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: DropdownButton<String>(
+                                  items: ['Morning', 'Afternoon', 'Night']
+                                      .map((String value) => DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  ))
+                                      .toList(),
+                                  onChanged: (value) {
+                                    field['time'] = value;
+                                  },
+                                  hint: Text('Select Time'),
+                                  value: field['time'] ?? null,
+                                ),
+                              ),
+                            ],
+                          );
+                        }).toList(),
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                dynamicFields.add({'label': '', 'time': null});
+                              });
+                            },
+                            child: Text('Add Field'),
+                          ),
+                          SizedBox(width: 10),
+                          ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                if (dynamicFields.isNotEmpty) {
+                                  dynamicFields.removeLast();
+                                }
+                              });
+                            },
+                            child: Text('Delete Field'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               SizedBox(height: 20),
               _uploading
                   ? CircularProgressIndicator()
@@ -86,65 +186,6 @@ class _UplodedocScreenState extends State<UplodedocScreen> {
                   : ElevatedButton(
                 onPressed: _getImage,
                 child: Text('Select Image'),
-              ),
-              SizedBox(height: 20),
-              Text('Dynamic Fields:', style: TextStyle(fontWeight: FontWeight.bold)),
-              SizedBox(height: 10),
-              Column(
-                children: dynamicFields.map((field) {
-                  return Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(labelText: 'Enter Medicine Name'),
-                          onChanged: (value) {
-                            field['label'] = value;
-                          },
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: DropdownButton<String>(
-                          items: ['Morning', 'Afternoon', 'Night']
-                              .map((String value) => DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          ))
-                              .toList(),
-                          onChanged: (value) {
-                            field['time'] = value;
-                          },
-                          hint: Text('Select Time'),
-                          value: field['time'] ?? null,
-                        ),
-                      ),
-                    ],
-                  );
-                }).toList(),
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        dynamicFields.add({'label': '', 'time': null});
-                      });
-                    },
-                    child: Text('Add Field'),
-                  ),
-                  SizedBox(width: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        if (dynamicFields.isNotEmpty) {
-                          dynamicFields.removeLast();
-                        }
-                      });
-                    },
-                    child: Text('Delete Field'),
-                  ),
-                ],
               ),
             ],
           ),

@@ -45,13 +45,13 @@ class _UserScreenState extends State<UserScreen> {
               await FirebaseAuth.instance.signOut();
             },
             icon: Icon(Icons.leave_bags_at_home),
-            color: Color(0xFF9F5D06),
+            color: Color(0xFF2B2A4C),
           )
         ],
       ),
       body: _getSelectedScreen(),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xFFE78510),
+        backgroundColor: Color(0xFF2B2A4C),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

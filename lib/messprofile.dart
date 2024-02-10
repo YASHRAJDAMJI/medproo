@@ -91,7 +91,7 @@ class _MessProfileScreenState extends State<MessProfileScreen> {
                   children: [
                     SizedBox(height: 16.0),
                     Text(
-                      'Hello',
+                      'Hello                                               ',
                       style: TextStyle(
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
@@ -154,22 +154,6 @@ class _MessProfileScreenState extends State<MessProfileScreen> {
                       ),
                     ),
                     SizedBox(height: 16.0),
-                    Text(
-                      'User ID',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.orange,
-                      ),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      _userId,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 16.0),
                     ElevatedButton(
                       onPressed: () {
 
@@ -181,6 +165,7 @@ class _MessProfileScreenState extends State<MessProfileScreen> {
                       ),
                       child: Text('Logout'),
                     ),
+
                   ],
                 ),
               ),

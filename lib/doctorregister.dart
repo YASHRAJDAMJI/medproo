@@ -79,7 +79,8 @@ class _OnboardClientPageState extends State<OnboardClientPage> {
           "profileImageUrl": imageUrl,
           "role": "doctor",
           "enable": true,
-          "license": licenseController.text, // Store license number in Firestore
+          "license": licenseController.text,
+          // Store license number in Firestore
         });
 
         // Clear text controllers and picked image after successful registration
@@ -107,12 +108,15 @@ class _OnboardClientPageState extends State<OnboardClientPage> {
 
     try {
       // Create a unique filename for the image
-      String fileName = "${auth.currentUser!.uid}_${DateTime.now().millisecondsSinceEpoch}.jpg";
+      String fileName = "${auth.currentUser!.uid}_${DateTime
+          .now()
+          .millisecondsSinceEpoch}.jpg";
       // Upload image to Firebase Storage
       await storage.ref("profile_images/$fileName").putFile(pickedImage!);
 
       // Get download URL
-      String imageUrl = await storage.ref("profile_images/$fileName").getDownloadURL();
+      String imageUrl = await storage.ref("profile_images/$fileName")
+          .getDownloadURL();
 
       return imageUrl;
     } catch (e) {
@@ -149,7 +153,8 @@ class _OnboardClientPageState extends State<OnboardClientPage> {
   }
 
   Future<void> _pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile = await ImagePicker().pickImage(
+        source: ImageSource.gallery);
 
     if (pickedFile != null) {
       setState(() {
@@ -161,53 +166,113 @@ class _OnboardClientPageState extends State<OnboardClientPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFFECECEC), // Set the background color of the app bar
+        title: Text('Sign Up'), // Set the title of the app bar
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              TextField(
-                controller: nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+              Container(
+                padding: EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  // Set the background color of the container
+                  borderRadius: BorderRadius.circular(10),
+                  // Set the border radius to make the corners rounded
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      // Set the shadow color with opacity
+                      spreadRadius: 5,
+                      // Set the spread radius
+                      blurRadius: 7,
+                      // Set the blur radius
+                      offset: Offset(0, 3), // Set the shadow offset
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: nameController,
+                      decoration: InputDecoration(
+                        labelText: 'Name',
+                        contentPadding: EdgeInsets.symmetric(vertical: 8.0,
+                            horizontal: 16.0), // Set the padding for the text field
+                      ),
+                    ),
+                    SizedBox(height: 8.0),
+                    // Add space between text fields
+                    TextField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        contentPadding: EdgeInsets.symmetric(vertical: 8.0,
+                            horizontal: 16.0), // Set the padding for the text field
+                      ),
+                    ),
+                    SizedBox(height: 8.0),
+                    // Add space between text fields
+                    TextField(
+                      controller: phoneNoController,
+                      decoration: InputDecoration(
+                        labelText: 'Phone Number',
+                        contentPadding: EdgeInsets.symmetric(vertical: 8.0,
+                            horizontal: 16.0), // Set the padding for the text field
+                      ),
+                      keyboardType: TextInputType.phone,
+                    ),
+                    SizedBox(height: 8.0),
+                    // Add space between text fields
+                    TextField(
+                      controller: passwordController,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        contentPadding: EdgeInsets.symmetric(vertical: 8.0,
+                            horizontal: 16.0), // Set the padding for the text field
+                      ),
+                      obscureText: true,
+                    ),
+                    SizedBox(height: 8.0),
+                    // Add space between text fields
+                    TextField(
+                      controller: licenseController,
+                      decoration: InputDecoration(
+                        labelText: 'License Number',
+                        contentPadding: EdgeInsets.symmetric(vertical: 8.0,
+                            horizontal: 16.0), // Set the padding for the text field
+                      ),
+                    ),
+                    SizedBox(height: 16.0),
+                    // Add space between text fields and buttons
+                    ElevatedButton(
+                      onPressed: _pickImage,
+                      child: Text('Pick Image'),
+                    ),
+                    if (pickedImage != null) ...[
+                      SizedBox(height: 16),
+                      // Add space between image and other elements
+                      Image.file(pickedImage!, height: 100),
+                    ],
+                    SizedBox(height: 16.0),
+                    // Add space between text fields and buttons
+                    ElevatedButton(
+                      onPressed: () {
+                        registerUserAndStoreData();
+                      },
+                      child: Text('Submit'),
+                    ),
+                    if (_isSaving) ...[
+                      SizedBox(height: 16.0),
+                      // Add space for progress indicator
+                      CircularProgressIndicator(),
+                    ],
+                  ],
+                ),
               ),
-              TextField(
-                controller: emailController,
-                decoration: InputDecoration(labelText: 'Email'),
-              ),
-              TextField(
-                controller: phoneNoController,
-                decoration: InputDecoration(labelText: 'Phone Number'),
-                keyboardType: TextInputType.phone,
-              ),
-              TextField(
-                controller: passwordController,
-                decoration: InputDecoration(labelText: 'Password'),
-                obscureText: true,
-              ),
-              TextField(
-                controller: licenseController,
-                decoration: InputDecoration(labelText: 'License Number'), // Text field for license number
-              ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: _pickImage,
-                child: Text('Pick Image'),
-              ),
-              if (pickedImage != null) ...[
-                SizedBox(height: 16),
-                Image.file(pickedImage!, height: 100),
-              ],
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  registerUserAndStoreData();
-                },
-                child: Text('Submit'),
-              ),
-              if (_isSaving) ...[
-                SizedBox(height: 16),
-                CircularProgressIndicator(),
-              ],
             ],
           ),
         ),
@@ -216,7 +281,7 @@ class _OnboardClientPageState extends State<OnboardClientPage> {
   }
 }
 
-void main() {
+  void main() {
   runApp(MaterialApp(
     home: OnboardClientPage(),
   ));
